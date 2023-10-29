@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer List</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            margin: 20px auto 0; /* Adjusted margin-top to 0 */
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .action-icons {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .edit-icon, .delete-icon {
+            cursor: pointer;
+        }
+
+        .add-customer-button {
+            display: block;
+            position: absolute;
+            top: 20px;
+            left: 120px;
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        h2{
+            text-align: center;
+
+        }
+    </style>
+</head>
+<body>
+<button class="add-customer-button" id="navigateButton">Add Customer</button>
+<h2>Customer List</h2>
+<table>
+    <thead>
+    <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Address</th>
+        <th>City</th>
+        <th>State</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody id="userTableBody">
+    <!-- User data will be inserted here dynamically -->
+    </tbody>
+</table>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+
+    // Function to fetch and display user data
+    function fetchAndDisplayUsers() {
+    console.log("adjfka");
+        // Make an AJAX GET request to your Spring Boot API to get user data
+        $.get("/get_user", function (customers) {
+            // Get the table body element
+            var tableBody = document.getElementById("userTableBody");
+<!--             console.log(customers.size());-->
+            // Clear any existing rows in the table
+            tableBody.innerHTML = "";
+
+            // Loop through the customer data and add rows to the table
+            customers.forEach(function (customer) {
+            console.log(customer.first_name);
+                var row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${customer.first_name}</td>
+                    <td>${customer.last_name}</td>
+                    <td>${customer.address}</td>
+                    <td>${customer.city}</td>
+                    <td>${customer.state}</td>
+                    <td>${customer.email}</td>
+                    <td>${customer.phone}</td>
+                    <td class="action-icons">
+                        <span class="edit-icon">&#9998;</span>
+                        <span class="delete-icon">&#128465;</span>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        });
+    }
+
+    // Add an event listener to the "Add Customer" button
+    document.getElementById("navigateButton").addEventListener("click", function() {
+        window.location.href = "registration";
+    });
+
+    // Fetch and display user data when the page loads
+    fetchAndDisplayUsers();
+</script>
+
+<!-- Include jQuery library -->
+</body>
+</html>
