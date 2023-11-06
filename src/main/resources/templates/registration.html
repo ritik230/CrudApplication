@@ -48,35 +48,99 @@
             font-size: 16px;
             width: 100%;
         }
+           .Dashboard-button {
+            background-color: black;
+            color: #fff;
+            border: none;
+            margin-top:10px;
+            padding: 10px;
+            border-radius: 5px;
+            border-color:white;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
     </style>
 </head>
 <body>
     <div class="form-container">
         <h2 style="text-align: center;">Customer Information</h2>
-        <form action="dashboard" method="post">
+        <form id= "form"  onsubmit="return makeApiCall()" method="post" >
             <div class="form-group">
-                <input type="text" name="first-name" placeholder="First Name" required>
+                <input id= "uuid" type="text" name="uuid" placeholder="id" required>
             </div>
             <div class="form-group">
-                <input type="text" name="last-name" placeholder="Last Name" required>
+                <input  id= "first_name"  type="text" name="first-name" placeholder="First Name" required>
             </div>
             <div class="form-group">
-                <input type="text" name="address" placeholder="Address" required>
+                <input  id= "last_name" type="text" name="last-name" placeholder="Last Name" required>
             </div>
             <div class="form-group">
-                <input type="text" name "city" placeholder="City" required>
+                <input  id= "address"  type="text" name="address" placeholder="Address" required>
             </div>
             <div class="form-group">
-                <input type="text" name="state" placeholder="State" required>
+                <input  id= "city" type="text" name= "city" placeholder="City" required>
             </div>
             <div class="form-group">
-                <input type="email" name="email" placeholder="Email" required>
+                <input  id= "state"  type="text" name="state" placeholder="State" required>
             </div>
             <div class="form-group">
-                <input type="tel" name="phone" placeholder="Phone" required>
+                <input  id= "email"  type="email" name="email" placeholder="Email" required>
             </div>
-            <button type="submit" class="submit-button">Submit</button>
+            <div class="form-group">
+                <input id= "phone" type="tel" name="phone" placeholder="Phone" required>
+            </div>
+            <button type="submit"  class="submit-button">Submit</button>
         </form>
+        <button type="Dashboard" onclick="return goToDashboard()" class="Dashboard-button">Dashboard</button>
     </div>
+    <script>//flacsep
+    function goToDashboard(){
+      window.location.href = "dashboard";
+      return false;
+    }
+function makeApiCall() {
+    const apiUrl = "http://localhost:8080/create_user"; // Replace with your Spring Boot API endpoint
+
+    const requestData = {
+        "first_name": document.getElementById("first_name").value,
+        "last_name": document.getElementById("last_name").value,
+        "address": document.getElementById("address").value,
+        "city": document.getElementById("city").value,
+        "state": document.getElementById("state").value,
+        "email": document.getElementById("email").value,
+        "phone": document.getElementById("phone").value
+    };
+
+    fetch(apiUrl, {
+        method: "POST", // Use the appropriate HTTP method (GET, POST, PUT, DELETE, etc.)
+        headers: {
+            "Content-Type": "application/json", // Set the content type of your request
+            // You can add other headers as needed
+        },
+        body: JSON.stringify(requestData) // Convert your data to JSON format
+    })
+    .then((response) => {
+        if (response.ok) {
+            window.location.href = "registration"; // Redirect to the dashboard page if the request is successful
+            return response.json(); // Parse the response JSON if needed
+        } else {
+            throw new Error("Request failed");
+        }
+    })
+    .then((data) => {
+        // Handle the API response data here if needed
+        console.log("API Response:", data);
+    })
+    .catch((error) => {
+        // Handle any errors that occur during the request
+        console.error("API Request Failed:", error);
+    });
+
+    // Prevent the form from submitting
+    return false;
+}
+
+    </script>
 </body>
 </html>

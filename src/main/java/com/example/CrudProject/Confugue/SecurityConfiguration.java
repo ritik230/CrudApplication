@@ -16,14 +16,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/get_user").hasAnyRole("ADMIN","READER")
-                .antMatchers(HttpMethod.POST, "/create_user").hasRole("ADMIN")
                 .antMatchers(HttpMethod.PUT, "/update_user/**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.PATCH, "/patch_user/**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/delete_user/**").hasRole("ADMIN")
                 .and()
                 .formLogin()
-                .loginPage("/login") // Specify the custom login page URL
+                .loginPage("/login").passwordParameter("admin123").usernameParameter("admin")// Specify the custom login page URL
                 .successHandler(customAuthenticationSuccessHandler()) // Redirect to the dashboard upon successful login
                 .and()
                 .httpBasic();

@@ -1,30 +1,37 @@
 package com.example.CrudProject.Entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Customer {
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String uuid;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "uuid", nullable = false)
+
+
+        private Long uuid;
         private String first_name;
         private String last_name;
-        private String street;
         private String address;
         private String city;
         private String state;
         private String email;
         private String phone;
 
-        // Constructors, getters, and setters
-        public String getUuid() {
+    public Long getId() {
+        return uuid;
+    }
+
+    public void setId(Long id) {
+        this.uuid = id;
+    }
+
+    // Constructors, getters, and setters
+        public Long getUuid() {
             return uuid;
         }
 
-        public void setUuid(String uuid) {
+        public void setUuid(Long uuid) {
             this.uuid = uuid;
         }
 
@@ -44,13 +51,6 @@ public class Customer {
             this.last_name = last_name;
         }
 
-        public String getStreet() {
-            return street;
-        }
-
-        public void setStreet(String street) {
-            this.street = street;
-        }
 
         public String getAddress() {
             return address;

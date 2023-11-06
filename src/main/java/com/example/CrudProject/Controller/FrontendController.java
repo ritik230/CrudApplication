@@ -1,31 +1,31 @@
 package com.example.CrudProject.Controller;
 
+import com.example.CrudProject.Entity.Customer;
+import com.example.CrudProject.Service.CustomerService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class FrontendController {
+    CustomerService cs;
     @GetMapping("/")
-    public String get() {
-        // Implement logic to retrieve the customer list and return it
-        return "login";
-    }
-    @GetMapping("/registration")
-    public String getregistered() {
-        // Implement logic to retrieve the customer list and return it
-        System.out.print("registration");
-        return "registration";
-    }
-    @PostMapping("login")
     public String getlogin() {
         // Implement logic to retrieve the customer list and return it
         return "login";
     }
-    @PostMapping("dashboard")
+    @GetMapping("/login")
+    public String get() {
+        // Implement logic to retrieve the customer list and return
+        return "login";
+    }
+    @GetMapping("/registration")
+    public String getregistered() {
+        // Implement logic to retrieve the customer list and return i
+        return "registration";
+    }
+    @GetMapping("/dashboard")
     public String getlist() {
 
-        // Implement logic to retrieve the customer list and return it
         return "dashboard";
     }
 }

@@ -68,7 +68,6 @@ public class CustomerService {
             // Update the fields and save to the repository
             existingCustomer.setFirst_name(updatedCustomer.getFirst_name());
             existingCustomer.setLast_name(updatedCustomer.getLast_name());
-            existingCustomer.setStreet(updatedCustomer.getStreet());
             existingCustomer.setAddress(updatedCustomer.getAddress());
             existingCustomer.setCity(updatedCustomer.getCity());
             existingCustomer.setState(updatedCustomer.getState());
