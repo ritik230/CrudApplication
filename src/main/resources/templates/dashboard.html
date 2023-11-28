@@ -57,6 +57,16 @@
             text-align: center;
 
         }
+        .logout_button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 650px;
+            margin-top:40px;
+        }
     </style>
 </head>
 <body>
@@ -65,6 +75,7 @@
 <table>
     <thead>
     <tr>
+        <th id="uuid">uuid</th>
         <th>First Name</th>
         <th>Last Name</th>
         <th>Address</th>
@@ -72,32 +83,36 @@
         <th>State</th>
         <th>Email</th>
         <th>Phone</th>
-        <th>Action</th>
+        <th>Action </th>
     </tr>
     </thead>
-    <tbody id="userTableBody">
+    <tbody id="userTableBody" >
     <!-- User data will be inserted here dynamically -->
+
     </tbody>
+
 </table>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
+<!-- ... Your existing HTML code ... -->
 
+<script>
     // Function to fetch and display user data
     function fetchAndDisplayUsers() {
-    console.log("adjfka");
+        console.log("adjfka");
         // Make an AJAX GET request to your Spring Boot API to get user data
         $.get("/get_user", function (customers) {
             // Get the table body element
             var tableBody = document.getElementById("userTableBody");
-<!--             console.log(customers.size());-->
+
             // Clear any existing rows in the table
             tableBody.innerHTML = "";
 
             // Loop through the customer data and add rows to the table
             customers.forEach(function (customer) {
-            console.log(customer.first_name);
+                console.log(customer.first_name);
                 var row = document.createElement("tr");
                 row.innerHTML = `
+                    <td>${customer.uuid}</td>
                     <td>${customer.first_name}</td>
                     <td>${customer.last_name}</td>
                     <td>${customer.address}</td>
@@ -106,8 +121,8 @@
                     <td>${customer.email}</td>
                     <td>${customer.phone}</td>
                     <td class="action-icons">
-                        <span class="edit-icon">&#9998;</span>
-                        <span class="delete-icon">&#128465;</span>
+                        <button >&#9998;</button>
+                        <button class="delete-button" onclick="deleteUser('${customer.uuid}')">&#128465;</button>
                     </td>
                 `;
                 tableBody.appendChild(row);
@@ -116,13 +131,51 @@
     }
 
     // Add an event listener to the "Add Customer" button
-    document.getElementById("navigateButton").addEventListener("click", function() {
+    document.getElementById("navigateButton").addEventListener("click", function () {
         window.location.href = "registration";
     });
 
     // Fetch and display user data when the page loads
     fetchAndDisplayUsers();
+
+
+
+    function logout() {
+        window.location.href = "login";
+        return false;
+    }
+    function deleteUser(uuid) {
+    console.log("Delete button clicked for user with UUID:", uuid);
+    const apiUrl = "http://localhost:8080/delete_user";
+
+    const apiUrl1 = apiUrl+"/"+uuid+"?uuid=" + uuid;
+    fetch(apiUrl1, {
+        method: "DELETE",
+        headers: {
+            // Set the content type of your request
+            // You can add other headers as needed
+        },
+    })
+        .then((response) => {
+            if (response.ok) {
+                console.log("User deleted successfully");
+                // Refresh the user list or perform any other necessary actions
+                fetchAndDisplayUsers();
+            } else {
+                throw new Error("Request failed");
+            }
+        })
+        .catch((error) => {
+            // Handle any errors that occur during the request
+            console.error("API Request Failed:", error);
+        });
+        return false;
+        }
 </script>
+
+<!-- ... Your existing HTML code ... -->
+
+<button class="logout_button" onclick="return logout()">Logout</button>
 
 <!-- Include jQuery library -->
 </body>

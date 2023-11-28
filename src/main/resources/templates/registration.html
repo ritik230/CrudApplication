@@ -103,6 +103,7 @@ function makeApiCall() {
     const apiUrl = "http://localhost:8080/create_user"; // Replace with your Spring Boot API endpoint
 
     const requestData = {
+        "uuid": document.getElementById("uuid").value,
         "first_name": document.getElementById("first_name").value,
         "last_name": document.getElementById("last_name").value,
         "address": document.getElementById("address").value,

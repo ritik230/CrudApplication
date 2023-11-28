@@ -18,7 +18,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
         http.csrf().disable().authorizeRequests()
                 .antMatchers(HttpMethod.PUT, "/update_user/**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.PATCH, "/patch_user/**").hasRole("ADMIN")
-                .antMatchers(HttpMethod.DELETE, "/delete_user/**").hasRole("ADMIN")
+
                 .and()
                 .formLogin()
                 .loginPage("/login").passwordParameter("admin123").usernameParameter("admin")// Specify the custom login page URL

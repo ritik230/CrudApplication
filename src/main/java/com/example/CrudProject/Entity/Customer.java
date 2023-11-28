@@ -5,11 +5,8 @@ import javax.persistence.*;
 @Entity
 public class Customer {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "uuid", nullable = false)
-
-
-        private Long uuid;
+        private String uuid;
         private String first_name;
         private String last_name;
         private String address;
@@ -18,20 +15,20 @@ public class Customer {
         private String email;
         private String phone;
 
-    public Long getId() {
+    public String getId() {
         return uuid;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.uuid = id;
     }
 
     // Constructors, getters, and setters
-        public Long getUuid() {
+        public String getUuid() {
             return uuid;
         }
 
-        public void setUuid(Long uuid) {
+        public void setUuid(String uuid) {
             this.uuid = uuid;
         }
 

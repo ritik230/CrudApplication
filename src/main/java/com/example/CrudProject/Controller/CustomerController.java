@@ -45,6 +45,7 @@ public class CustomerController {
     @DeleteMapping("/delete_user/{uuid}")
     public ResponseEntity<String> deleteCustomer(@RequestParam String uuid) {
         // Implement logic to delete a customer and return success or error response
+          System.out.print(uuid);
         if (customerService.deleteCustomer(uuid)) { // Assuming a service method for deletion
             return ResponseEntity.ok("Successfully deleted");
         } else {
